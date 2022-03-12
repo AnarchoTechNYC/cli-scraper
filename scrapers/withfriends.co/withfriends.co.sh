@@ -20,7 +20,7 @@ scrape () {
     # Pull data from Withfriends.co Web site for the given "Movement" (organization/organizer).
     curl --silent -X POST --data-raw \
            "Raw=1&Metadata_Namespace=Jelly_Site_998_Container_Movement_${movement_id}_Async_Wrapper_Movement_${movement_id}_Block_New_Movement_${movement_id}_Async_Wrapper_Movement_${movement_id}_Movement_${movement_id}_Async_Wrapper" \
-        "https://withfriends.co/Movement/${movement_id}/Incremental_Events:Display_Infinite_Scroll=1,Display_Item_Element=li,Display_Item_Classes=Event_List_Item%20wf-event%20wf-front,Display_Iterator_Element=None,Display_Increment=5,Display_Template_Alias=New_List,Display_Segment=Upcoming,Display_Property_Alias=Events,Display_Front=1,Display_Item_Type=Movement,Display_Item=${movement_id}" | \
+        "https://withfriends.co/Movement/${movement_id}/Incremental_Events:Display_Item_Element=li,Display_Item_Classes=Event_List_Item%20wf-event%20wf-front,Display_Iterator_Element=None,Display_Increment=100,Display_Template_Alias=New_List,Display_Segment=Upcoming,Display_Property_Alias=Events,Display_Item_Type=Movement,Display_Item=${movement_id}" | \
         hxnormalize -x | hxselect .wf-event > "$tmpfile"
         #hxnormalize -x | hxselect .wf-event | tee "$tmpfile" # Uncomment to show scraped page output.
 
@@ -66,11 +66,11 @@ scrape () {
             # JSON object out of it.
             cat <<-EOF >> $outfile
 {
-    "title"      : "$event_name",
-    "start"      : "$event_start_datetime",
-    "url"        : "$event_url",
-    "location"   : "$event_location",
-    "description": "$event_description"
+    "title"      : "$(json_escape "$event_name")",
+    "start"      : "$(json_escape "$event_start_datetime")",
+    "url"        : "$(json_escape "$event_url")",
+    "location"   : "$(json_escape "$event_location")",
+    "description": "$(json_escape "$event_description")"
 },
 EOF
         fi
