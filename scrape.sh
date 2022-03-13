@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -
 
 # Convenience function that takes an arbitrary string and
 # echoes its JSON-safe equivalent.
