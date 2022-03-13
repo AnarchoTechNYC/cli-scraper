@@ -44,8 +44,8 @@ main () {
         done
     fi
 
-    cat "$outfile" \
-        > "/srv/scraper/$scraper.json" # Final data output.
+    # Print it.
+    cat "$outfile"
 }
 
 main "$@"

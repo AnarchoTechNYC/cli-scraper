@@ -97,11 +97,9 @@ main () {
 
     # Print it, without newlines (JSON doesn't care), and
     # fixing any trailing commas.
-    #cat $outfile | tr '\n' ' ' | sed -e 's/}, ]/} ]/g'
     cat "$outfile" \
         | tr '\n' ' ' \
-        | sed -e 's/}, ]/} ]/g' \
-        > "/srv/scraper/$scraper.json" # Final data output.
+        | sed -e 's/}, ]/} ]/g'
 
 }
 main "$@"

@@ -11,6 +11,4 @@ RUN addgroup scraper \
 
 USER scraper
 
-VOLUME /srv/scraper
-
 ENTRYPOINT ["/bin/bash", "scrape.sh"]
